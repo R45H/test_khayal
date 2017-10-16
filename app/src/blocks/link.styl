@@ -1,0 +1,33 @@
+name = link
+
+.{name}
+	display: inline-block
+	text-decoration: none
+	color: color-text
+
+	&_arrow
+
+		&::after
+			content: '\f061'
+			font-family: font-fa
+			font-size: .7em
+			font-weight: 100
+			margin-left: .5em
+			position: relative
+			top: -1px
+			left: 0
+			opacity: 1
+			transition: (duration / 2) ease left, (duration / 2) ease opacity
+
+		&:hover
+			color: color-main
+
+			&::after
+				left: .3em
+
+		&:active
+			color: lighten(color-main, 70%)
+
+			&::after
+				left: 1em
+				opacity: 0
