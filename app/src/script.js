@@ -6,6 +6,8 @@ $(function() {
 		@@include('blocks/aside/aside.js')
 		@@include('blocks/popup/popup.js')
 	}());
+
+	(function() { @@include('blocks/input/input.js') }());
 });
 
 @@include('global/functions.js')

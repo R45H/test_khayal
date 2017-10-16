@@ -13,8 +13,8 @@ point-sm = 768px
 point-md = 992px
 point-lg = 1200px
 
-font-main = 'Open Sans', sans-serif // 400, 600, 700
-font-fa = 'FontAwesome', sans-serif
+font-main = 'Open Sans', sans-serif; // 400, 600, 700
+font-fa = 'FontAwesome', sans-serif;
 
 footer-height = 12rem
 footer-height-lg = 8rem
@@ -92,24 +92,24 @@ input-placeholder()
 	&::-webkit-input-placeholder 
 		{block}
 
-	&::-moz-placeholder 
-		{block}
-		
-	&:-moz-placeholder 
+	&::-moz-placeholder
 		{block}
 
-	&:-ms-input-placeholder 
+	&:-moz-placeholder
+		{block}
+
+	&:-ms-input-placeholder
 		{block}
 
 // Сброс жёлтого выделения в хроме
-input-autofill(font-color = black, font-color-selected = font-color, bg-color = white) 
+input-autofill(font-color = black, font-color-selected = font-color, bg-color = white)
 
-	&:-webkit-autofill 
+	&:-webkit-autofill
 		-webkit-box-shadow inset 0 0 0 50px bg-color /* Цвет фона */
 		-webkit-text-fill-color font-color /* цвет текста */
 		color font-color /* цвет текста */
 
-		&::selection 
+		&::selection
 			-webkit-text-fill-color font-color-selected /* цвет текста */
 			color font-color-selected /* цвет текста */
 

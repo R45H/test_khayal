@@ -1,0 +1,31 @@
+name = input
+
+.{name}
+	-webkit-appearance: none
+	border-radius: 0
+	border: 2px solid color-text
+	padding: .4em .6em
+	color: color-text
+	transition: (duration / 2) ease
+
+	+input-autofill(color-text){}
+
+	+input-placeholder()
+		color: lighten(color-text, 15%);
+		transition: duration ease;
+
+	&:focus
+		border-color: color-main
+
+		+input-placeholder()
+			text-indent: 10px;
+
+	&_invalid
+		border-color: color-main;
+		color: color-main;
+
+		+input-placeholder()
+			color: color-main;
+
+textarea.{$name}
+	height: 4.5em;
