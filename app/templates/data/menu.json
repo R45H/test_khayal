@@ -1,0 +1,16 @@
+{
+	"menu": [
+		{
+			"name": "About",
+			"link": "#"
+		},
+		{
+			"name": "Work",
+			"link": "#"
+		},
+		{
+			"name": "Contact",
+			"link": "#"
+		}
+	]
+}

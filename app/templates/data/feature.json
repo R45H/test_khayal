@@ -1,0 +1,8 @@
+{
+	"feature": [
+		{"link": "#", "img": "img/feature/01.jpg"},
+		{"link": "#", "img": "img/feature/02.jpg"},
+		{"link": "#", "img": "img/feature/03.jpg"},
+		{"link": "#", "img": "img/feature/04.jpg"}
+	]
+}
