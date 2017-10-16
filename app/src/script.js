@@ -10,4 +10,6 @@ $(function() {
 	(function() { @@include('blocks/input/input.js') }());
 });
 
+(function() { @@include('blocks/preloader/preloader.js') }());
+
 @@include('global/functions.js')
