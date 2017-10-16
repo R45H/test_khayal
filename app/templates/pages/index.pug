@@ -17,17 +17,17 @@ include ../mixins/feature
 
 			- var count = 1
 			each val in feature
-				.main__space-cols.main__mobile-full(class= count <= 1 ? 'col-xs-12 col-sm-7' : 'col-xs-6 col-sm-5')
+				.main__space-cols.main__mobile-full.wow.fadeInUp(class= count <= 1 ? 'col-xs-12 col-sm-7' : 'col-xs-6 col-sm-5')
 					+feature(val)
 
 				- count == 3 ? count = 0 : count++;
 
 .section
 	.container.text-center
-		.title.title_sm Let's make something creative together
-		p Got a project you're excited about and think we can help?
-		p= 'Contact up at '
+		.title.title_sm.wow.fadeInRight Let's make something creative together
+		p.wow.fadeInLeft Got a project you're excited about and think we can help?
+		p.wow.fadeInLeft= 'Contact up at '
 			a.link(href='mailto:' + global[1].email)= global[1].email
 			= ' or using the button below.'
 
-		a.btn.main__btn(href='#' data-modal='#popup') Contact us
+		a.btn.main__btn.wow.fadeInUp(href='#' data-modal='#popup') Contact us
