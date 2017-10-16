@@ -1,0 +1,113 @@
+color-main = null
+color-text = #333
+
+color-webcenter-1 = #ff141f
+color-webcenter-2 = #334b61
+
+color-vk = #45668e
+color-fb = #3b5998
+color-insta = #bc2a8d
+color-yt = #bb0000
+color-tw = #00aced
+
+point-sm = 576px
+point-md = 768px
+point-lg = 992px
+point-xl = 1200px
+
+font-main = sans-serif
+
+duration = .3s
+
+path = '../'
+
+clear =
+	display table
+	width 100%
+	clear both
+
+
+// ----------------------------
+// МИКСИНЫ ДЛЯ ТЕКУЩЕГО ПРОЕКТА
+// ----------------------------
+
+// ----------------------------
+
+
+// -------------
+// ОБЩИЕ МИКСИНЫ
+// -------------
+
+// Брейкпоинты
+media_min = {
+  sm : '(min-width: 576px)',
+  md : '(min-width: 768px)',
+  lg : '(min-width: 992px)',
+  xl : '(min-width: 1200px)',
+}
+media_max = {
+  sm : '(max-width: 575x)',
+  md : '(max-width: 767px)',
+  lg : '(max-width: 991px)',
+  xl : '(max-width: 1199px)',
+}
+
+point(breakpoints, direct = 'min')
+	conditions = ()
+	for point in breakpoints
+		if direct == min
+			push(conditions, media_min[point])
+		else
+			push(conditions, media_max[point])
+	conditions = join(", ", conditions)
+	@media conditions
+		{block}
+// ===========
+
+// Ретина
+retina()
+	@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+	only screen and (min-resolution: 144dpi)
+		{block}
+		
+// Подключение изображений для ретины
+bgi-retina(file, type = 'png', width = 100%, height = width)
+	background-image url(file + '.' + type)
+
+	+retina()
+		background-image url(file + '@2x.' + type)
+	
+		if width == cover or width == contain
+			height = null
+			
+		background-size = width height
+
+
+// Стили плейсхолдера инпутов
+input-placeholder()
+
+	&::-webkit-input-placeholder 
+		{block}
+
+	&::-moz-placeholder 
+		{block}
+		
+	&:-moz-placeholder 
+		{block}
+
+	&:-ms-input-placeholder 
+		{block}
+
+// Сброс жёлтого выделения в хроме
+input-autofill(font-color = black, font-color-selected = font-color, bg-color = white) 
+
+	&:-webkit-autofill 
+		-webkit-box-shadow inset 0 0 0 50px bg-color /* Цвет фона */
+		-webkit-text-fill-color font-color /* цвет текста */
+		color font-color /* цвет текста */
+
+		&::selection 
+			-webkit-text-fill-color font-color-selected /* цвет текста */
+			color font-color-selected /* цвет текста */
+
+// -------------

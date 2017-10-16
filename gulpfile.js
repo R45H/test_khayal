@@ -1,7 +1,7 @@
 /* ===== ПОДКЛЮЧЕНИЕ ПЛАГИНОВ ===== */
 var
    gulp         = require('gulp'),                         // GULP
-   sass         = require('gulp-sass'),                    // Препроцессор Sass
+   stylus       = require('gulp-stylus'),                  // Препроцессор Stylus
    browserSync  = require('browser-sync'),                 // Автоперезагрузка браузера
    uglify       = require('gulp-uglifyjs'),                // Сжатие JS
    rename       = require('gulp-rename'),                  // Для переименования файлов
@@ -93,12 +93,12 @@ gulp.task('pug', function () {
 });
 /* ================================ */
 
-/* ========= ТАСК "SASS" ========== */
-gulp.task('scss', function() {
-	return gulp.src(app + 'src/style.scss') // Берём источник
+/* ======== ТАСК "Stylus" ========= */
+gulp.task('stylus', function() {
+	return gulp.src(app + 'src/style.styl') // Берём источник
 		.pipe(plumber(err)) // Отслеживаем ошибки
 		.pipe(cssImport()) // Запускаем @import
-		.pipe(sass({outputStyle: 'expanded'})) // Преобразуем SCSS в CSS
+		.pipe(stylus({outputStyle: 'expanded'})) // Преобразуем Stylus в CSS
 		.pipe(queries()) // Объединяем медиа запросы
 		.pipe(prod ? autoprefixer(['last 15 versions', '>1%', 'ie 8', 'ie 7'], {cascade: true}) : gutil.noop()) // Создаём префиксы
 		.pipe(gulp.dest(dist + 'css/')) // Выгружаем результат
@@ -108,10 +108,10 @@ gulp.task('scss', function() {
 
 /* ======= ТАСК "CSS-LIBS" ======== */
 gulp.task('css-libs', function() {
-	return gulp.src(app + 'src/libs.scss') // Берём источник
+	return gulp.src(app + 'src/libs.styl') // Берём источник
 		.pipe(plumber(err)) // Отслеживаем ошибки
 		.pipe(cssImport()) // Запускаем @import
-		.pipe(sass({outputStyle: prod ? 'compressed' : 'expanded'})) // Преобразуем SCSS в CSS
+		.pipe(stylus({outputStyle: prod ? 'compressed' : 'expanded'})) // Преобразуем Stylus в CSS
 		.pipe(prod ? strip({ // Убираем комментарии
 			preserve: false // /* */ - Такие тоже
 		}) : gutil.noop())
@@ -124,8 +124,7 @@ gulp.task('css-libs', function() {
 /* ======== ТАСК "JS" ======== */
 gulp.task('js', function() {
 	return gulp.src([ // Берём файлы
-		app + 'src/script.js',
-		app + 'src/blocks/map/map.js'
+		app + 'src/script.js'
 	])
 		.pipe(plumber(err)) // Отслеживаем ошибки
 		.pipe(include()) // Собираем их в один файл
@@ -185,7 +184,7 @@ gulp.task('build', function(callback) {
 		'json',
 		[
 			'pug',
-			'scss',
+			'stylus',
 			'css-libs',
 			'js',
 			'js-libs',
@@ -200,8 +199,8 @@ gulp.task('build', function(callback) {
 /* ========= ТАСК "WATCH" ========= */
 gulp.task('watch', function() {
 	gulp.watch(app + '**/*.pug', ['pug']); // Наблюдение за PUG файлами
-	gulp.watch([app + 'src/**/*.scss', '!' + app + 'src/libs.scss'], ['scss']); // Наблюдение за своими SCSS файлами
-	gulp.watch(app + 'src/libs.scss', ['css-libs']); // Наблюдение за скачанными CSS файлами
+	gulp.watch([app + 'src/**/*.styl', '!' + app + 'src/libs.styl'], ['stylus']); // Наблюдение за своими Stylus файлами
+	gulp.watch(app + 'src/libs.styl', ['css-libs']); // Наблюдение за скачанными CSS файлами
 	gulp.watch([app + 'src/**/*.js', '!' + app + 'src/libs.js'], ['js']); // Наблюдение за своими JS файлами
 	gulp.watch(app + 'src/libs.js', ['js-libs']); // Наблюдение за скачанными JS файлами
 	gulp.watch(app + 'img/*', ['img']); // Наблюдение за картинками
@@ -283,7 +282,7 @@ gulp.task('page', function() {
 /* ======= СОЗДАНИЕ БЛОКА ========= */
 /**
  * name                        (n) - Имя блока
- * scss                        (s) - Генерация SCSS
+ * stylus                      (s) - Генерация Stylus
  * js                          (j) - Генерация JS
  * mixins, mixin, mix          (m) - Генерация PUG миксина
  * components, component, comp (c) - Генерация PUG компонента
@@ -300,44 +299,44 @@ gulp.task('block', function() {
 		dirThis = dirBlocks + name + '/', // Полный путь до папки с текущим блоком
 		dirThisRel = 'blocks/' + name + '/', // Относительный путь до папки с текущим блоком
 
-		keyScss = gutil.env.scss || gutil.env.s, // Ключ генерации SCSS файла
+		keyStylus = gutil.env.styl || gutil.env.s, // Ключ генерации Stylus файла
 		keyJs = gutil.env.js || gutil.env.j, // Ключ генерации JS файла
 		keyPugMixin = gutil.env.mixins || gutil.env.mixin || gutil.env.mix || gutil.env.m, // Ключ генерации PUG миксина
 		keyPugComp = gutil.env.components || gutil.env.component || gutil.env.comp || gutil.env.c, // Ключ генерации PUG компонента
 		keyPugPart = gutil.env.partials || gutil.env.partial || gutil.env.part || gutil.env.p, // Ключ генерации PUG части страницы
 		keyDataJson = gutil.env.json || gutil.env.o; // Ключ генерации JSON
 
-	// Генерация SCSS при запуске без ключей
-	if (!keyScss && !keyJs && !keyPugMixin && !keyPugComp && !keyPugPart && !keyDataJson) {
+	// Генерация Stylus при запуске без ключей
+	if (!keyStylus && !keyJs && !keyPugMixin && !keyPugComp && !keyPugPart && !keyDataJson) {
 
 		fs.access(dirBlocks + name + '.js', function(err) {
 
 			if (err) {
-				addScss(dirBlocks, 'blocks/');
+				addStylus(dirBlocks, 'blocks/');
 			} else {
 				moveJsToFolder();
-				addScss(dirThis, dirThisRel);
+				addStylus(dirThis, dirThisRel);
 			}
 		});
 	}
 	// =====
 
-	// Генерация SCSS и JS файлов
-	if (keyScss) {
+	// Генерация Stylus и JS файлов
+	if (keyStylus) {
 
 		if (keyJs) {
 			fs.mkdirSync(dirThis);
-			addScss(dirThis, dirThisRel);
+			addStylus(dirThis, dirThisRel);
 			addJs(dirThis, dirThisRel);
 		} else {
 
 			fs.access(dirBlocks + name + '.js', function(err) {
 
 				if (err) {
-					addScss(dirBlocks, 'blocks/');
+					addStylus(dirBlocks, 'blocks/');
 				} else {
 					moveJsToFolder();
-					addScss(dirThis, dirThisRel);
+					addStylus(dirThis, dirThisRel);
 				}
 			});
 		}
@@ -345,12 +344,12 @@ gulp.task('block', function() {
 
 		if (keyJs) {
 
-			fs.access(dirBlocks + name + '.scss', function(err) {
+			fs.access(dirBlocks + name + '.styl', function(err) {
 
 				if (err) {
 					addJs(dirBlocks, 'blocks/');
 				} else {
-					moveScssToFolder();
+					moveStylusToFolder();
 					addJs(dirThis, dirThisRel);
 				}
 			});
@@ -382,18 +381,17 @@ gulp.task('block', function() {
 	}
 	// =====
 
-	function addScss(path, relPath) {
+	function addStylus(path, relPath) {
 		var
 			str =
-				'$name: ' + name + ';\r\n' +
+				'name = ' + name + '\r\n' +
 				'\r\n' +
-				'.#{$name} {\r\n' +
-				'\t\r\n' +
-				'}',
-			pathToMain = app + 'src/style.scss',
-			inc = '\r\n@import url(\'' + relPath + name + '.scss\');';
+				'.{$name}\r\n' +
+				'\tdisplay: block',
+			pathToMain = app + 'src/style.styl',
+			inc = '\r\n@import \'' + relPath + name + '.styl\'';
 
-		fs.writeFileSync(path + name + '.scss', str);
+		fs.writeFileSync(path + name + '.styl', str);
 		fs.appendFileSync(pathToMain, inc);
 	}
 	function addJs(path, relPath) {
@@ -461,23 +459,23 @@ gulp.task('block', function() {
 
 		return del('./' + dirBlocks + name + '.js');
 	}
-	function moveScssToFolder() {
+	function moveStylusToFolder() {
 
 		fs.mkdirSync(dirThis);
 
-		gulp.src(dirBlocks + name + '.scss')
+		gulp.src(dirBlocks + name + '.styl')
 			.pipe(gulp.dest(dirThis));
 
-		gulp.src(app + 'src/style.scss')
+		gulp.src(app + 'src/style.styl')
 			.pipe(replace(
-				'@import url(\'blocks/' + name + '.scss\');',
-				'@import url(\'' + dirThisRel + name + '.scss\');'
+				'@import \'blocks/' + name + '.styl\'',
+				'@import \'' + dirThisRel + name + '.styl\''
 			))
 			.pipe(gulp.dest(function(file) {
 				return file.base;
 			}));
 
-		return del('./' + dirBlocks + name + '.scss');
+		return del('./' + dirBlocks + name + '.styl');
 	}
 });
 /* ================================ */
