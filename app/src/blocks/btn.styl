@@ -1,0 +1,26 @@
+name = btn
+
+.{name}
+	display: inline-block
+	text-transform: uppercase
+	background-color: transparent
+	border: 2px solid color-main
+	color: color-main
+	text-decoration: none
+	font-weight: 600
+	line-height: 1.5
+	padding: .6em 4em
+	font-family: font-main;
+	cursor: pointer
+	outline: none
+	user-select: none
+	transition: (duration / 2) ease
+
+	&:hover
+		background: color-main;
+		color: white
+
+	&:active
+		color: white
+		background: darken(color-main, 20%);
+		border-color: darken(color-main, 20%);

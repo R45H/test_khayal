@@ -4,6 +4,15 @@ name = link
 	display: inline-block
 	text-decoration: none
 	color: color-text
+	border-bottom: 1px solid rgba(color-text, .5);
+
+	&:hover
+		color: color-main
+		border-bottom-color: rgba(color-main, .5)
+
+	&:active
+		color: lighten(color-main, 70%)
+		border-bottom-color: rgba(lighten(color-main, 70%), .5)
 
 	&_arrow
 
@@ -20,13 +29,11 @@ name = link
 			transition: (duration / 2) ease left, (duration / 2) ease opacity
 
 		&:hover
-			color: color-main
 
 			&::after
 				left: .3em
 
 		&:active
-			color: lighten(color-main, 70%)
 
 			&::after
 				left: 1em

@@ -1,6 +1,6 @@
 include ../mixins/feature
 
-.section.section_pb_2x
+.section
 	.container
 		.row
 			.col-sm-9
@@ -10,7 +10,7 @@ include ../mixins/feature
 					| ; a creative studio focusing on graphic design and websites, We deliver high quality websites.
 				a.link.link_arrow(href='#') More about us
 
-.section.section_bg_light
+.section.section_pb_half.section_bg_light
 	.container
 		h2.title.title_sm Featured work
 		.row
@@ -21,3 +21,13 @@ include ../mixins/feature
 					+feature(val)
 
 				- count == 3 ? count = 0 : count++;
+
+.section
+	.container.text-center
+		.title.title_sm Let's make something creative together
+		p Got a project you're excited about and think we can help?
+		p= 'Contact up at '
+			a.link(href='mailto:' + global[1].email)= global[1].email
+			= ' or using the button below.'
+
+		a.btn.main__btn(href='#') Contact us
