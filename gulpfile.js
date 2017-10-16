@@ -111,7 +111,10 @@ gulp.task('css-libs', function() {
 	return gulp.src(app + 'src/libs.styl') // Берём источник
 		.pipe(plumber(err)) // Отслеживаем ошибки
 		.pipe(cssImport()) // Запускаем @import
-		.pipe(stylus({outputStyle: prod ? 'compressed' : 'expanded'})) // Преобразуем Stylus в CSS
+		.pipe(stylus({
+			outputStyle: prod ? 'compressed' : 'expanded',
+			'include css': true
+		})) // Преобразуем Stylus в CSS
 		.pipe(prod ? strip({ // Убираем комментарии
 			preserve: false // /* */ - Такие тоже
 		}) : gutil.noop())
@@ -386,7 +389,7 @@ gulp.task('block', function() {
 			str =
 				'name = ' + name + '\r\n' +
 				'\r\n' +
-				'.{$name}\r\n' +
+				'.{name}\r\n' +
 				'\tdisplay: block',
 			pathToMain = app + 'src/style.styl',
 			inc = '\r\n@import \'' + relPath + name + '.styl\'';

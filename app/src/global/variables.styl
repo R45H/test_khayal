@@ -12,7 +12,10 @@ point-sm = 768px
 point-md = 992px
 point-lg = 1200px
 
-font-main = sans-serif
+font-main = 'Open Sans', sans-serif; // 400, 600, 700
+
+footer-height = 12rem
+footer-height-lg = 8rem
 
 duration = .3s
 
@@ -47,7 +50,7 @@ media_max = {
   lg : '(max-width: 1199px)'
 }
 
-point(breakpoints, direct = 'min')
+point(breakpoints, direct = min)
 	conditions = ()
 	for point in breakpoints
 		if direct == min

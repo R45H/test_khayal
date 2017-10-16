@@ -1,4 +1,26 @@
 name = footer
 
 .{name}
-	display: block
+	height: footer-height
+	margin-top: -(footer-height)
+	background: color-dark
+	border-top: 1px solid color-text
+	padding: 2rem 0
+
+	+point(sm)
+		height: footer-height-lg
+		margin-top: -(footer-height-lg)
+
+	&__copyright
+		font-size: 1.4rem
+		line-height: 4rem
+		text-transform: uppercase
+
+		+point(sm, max)
+			text-align: center
+
+	&__soc-wrap
+		text-align: center
+
+		+point(sm)
+			text-align: right
