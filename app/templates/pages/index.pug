@@ -1,3 +1,5 @@
+include ../mixins/feature
+
 .section.section_pb_2x
 	.container
 		.row
@@ -7,3 +9,15 @@
 					span.strong Khayal
 					| ; a creative studio focusing on graphic design and websites, We deliver high quality websites.
 				a.link.link_arrow(href='#') More about us
+
+.section.section_bg_light
+	.container
+		h2.title.title_sm Featured work
+		.row
+
+			- var count = 1
+			each val in feature
+				.main__space-cols.main__mobile-full(class= count <= 1 ? 'col-xs-12 col-sm-7' : 'col-xs-6 col-sm-5')
+					+feature(val)
+
+				- count == 3 ? count = 0 : count++;
