@@ -4,6 +4,7 @@ var
    stylus       = require('gulp-stylus'),                  // Препроцессор Stylus
    browserSync  = require('browser-sync'),                 // Автоперезагрузка браузера
    uglify       = require('gulp-uglifyjs'),                // Сжатие JS
+   csso         = require('gulp-csso'),                    // Сжатие CSS
    rename       = require('gulp-rename'),                  // Для переименования файлов
    del          = require('del'),                          // Для удаления файлов и папок
    imagemin     = require('gulp-imagemin'),                // Для работы с изображениями
@@ -98,7 +99,7 @@ gulp.task('stylus', function() {
 	return gulp.src(app + 'src/style.styl') // Берём источник
 		.pipe(plumber(err)) // Отслеживаем ошибки
 		.pipe(cssImport()) // Запускаем @import
-		.pipe(stylus({outputStyle: 'expanded'})) // Преобразуем Stylus в CSS
+		.pipe(stylus()) // Преобразуем Stylus в CSS
 		.pipe(queries()) // Объединяем медиа запросы
 		.pipe(prod ? autoprefixer(['last 15 versions', '>1%', 'ie 8', 'ie 7'], {cascade: true}) : gutil.noop()) // Создаём префиксы
 		.pipe(gulp.dest(dist + 'css/')) // Выгружаем результат
@@ -112,12 +113,12 @@ gulp.task('css-libs', function() {
 		.pipe(plumber(err)) // Отслеживаем ошибки
 		.pipe(cssImport()) // Запускаем @import
 		.pipe(stylus({
-			outputStyle: prod ? 'compressed' : 'expanded',
 			'include css': true
 		})) // Преобразуем Stylus в CSS
 		.pipe(prod ? strip({ // Убираем комментарии
 			preserve: false // /* */ - Такие тоже
 		}) : gutil.noop())
+		.pipe(prod ? csso() : gutil.noop()) // Сжимаем CSS
 		.pipe(rename({suffix: '.min'})) // Добавляем суффикс ".min"
 		.pipe(gulp.dest(dist + 'css')) // Выгружаем
 		.pipe(reload({stream: true})); // Перезагружаем сервер
