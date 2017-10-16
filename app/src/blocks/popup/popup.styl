@@ -1,0 +1,121 @@
+name = popup
+
+.{name}
+	position: fixed
+	top: 0
+	width: 100%
+	height: 100%
+	z-index: 50
+	overflow-x: hidden
+	overflow-y: hidden
+	padding: 0
+	display: none
+
+	+point(xs)
+		padding: 5% 0 30px
+		overflow-y: auto
+
+	&__wrap
+		margin: 0 auto
+		height: 100%
+		width: 100%
+		background-color: color-dark
+		box-shadow: 0 0 2px 2px color-dark
+		text-align: center
+		position: relative
+		overflow-y: auto
+		transform: scale(.9)
+		opacity: 0
+		transition: duration ease transform, duration linear opacity
+
+		+point(xs)
+			width: 400px
+			max-width: 100%
+			height: auto
+
+		&_visible
+			transition: duration * 2 ease transform, duration linear opacity
+			transform: none
+			opacity: 1
+
+	&__head
+		padding: 3rem
+
+	&__title
+		margin: 0
+
+	&__close
+		position: absolute
+		top: 0
+		right: 0
+		cursor: pointer
+		z-index: 1
+		width: 40px
+		height: 40px
+		user-select: none
+		transition: (duration / 2) ease
+
+		width = 20px
+		height = 2px
+
+		&::before,
+		&::after
+			content: ''
+			position: absolute
+			width: width
+			height: height
+			top: 50%
+			left: 50%
+			margin-top: -(height / 2)
+			margin-left: -(width / 2)
+			background: color-main
+			transition: (duration / 2) ease
+
+		&::before
+			transform: rotate(45deg)
+
+		&::after
+			transform: rotate(-45deg)
+
+		&:hover
+			background: color-main
+
+			&::before,
+			&::after
+				background: white
+
+		&:active
+			background: darken(color-main, 20%)
+
+			&::before,
+			&::after
+				background: white
+
+
+
+	&__body
+		position: relative
+		padding: 5rem
+		padding-top: 0
+
+		+point(xs)
+			height: 100%
+			overflow-y: auto
+
+	&__input,
+	&__btn
+		max-width: 300px
+
+	&__input
+		display: block
+		width: 100%
+		margin: 0 auto 10px
+
+	&__btn
+		margin-top: 3rem
+
+		+point(xs)
+			width: 100%
+
+	&_visible
+		display: block

@@ -1,0 +1,11 @@
+// ASIDE
+aside.aside
+
+	ul.aside__list
+
+		each val in menu
+			li.aside__item
+				a.link.aside__link(href= val.link)= val.name
+
+		li.aside__item.aside__item_modal
+			a.btn.aside__btn(href='#' data-modal='#popup') Contact us

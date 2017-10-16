@@ -2,6 +2,16 @@ name = toggle
 
 .{name}
 	cursor: pointer
+	position: fixed
+	top: 0
+	right: 0
+	height: 12rem
+	width: 12rem
+	box-sizing: content-box
+	z-index: 40
+
+	+point(xs)
+		display: none
 
 	&:hover
 

@@ -1,5 +1,6 @@
 var
 	$toggle = $('.toggle'),
+	$toggleI = $toggle.find('.toggle__i'),
 	activeClass = 'toggle_opened';
 
 /* Анимация гамбургера при клике */
