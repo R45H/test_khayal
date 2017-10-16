@@ -2,3 +2,22 @@ name = header
 
 .{name}
 	display: block
+	height: header-height
+	position: fixed
+	width: 100%
+
+	&__wrap
+		height: 100%
+		padding-top: (header-height / 4)
+		padding-bottom: (header-height / 4)
+
+	&__logo
+		float: left
+		margin-top: (header-height / 8)
+		height: (header-height / 4)
+
+	&__menu
+		float: right
+
+		+point(xs, max)
+			display: none

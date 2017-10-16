@@ -1,0 +1,34 @@
+name = menu
+
+.{name}
+	display: block
+	list-style-type: none
+
+	&__item
+		display: inline-block
+
+		&:first-child
+
+			.{name}
+
+				&__link
+					padding-left: 1rem
+
+		&:last-child
+
+			.{name}
+
+				&__link
+					padding-right: 1rem
+
+	&__link
+			color: white
+			display: block
+			text-decoration: none
+			padding: 1em 1.5em
+
+			&:hover
+				color: color-main
+
+			&:active
+				color: lighten(color-main, 70%)

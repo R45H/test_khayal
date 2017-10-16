@@ -1,2 +1,13 @@
 // HEADER
 header.header
+	.container.header__wrap
+
+		a.logo.header__logo(href='/')
+			img.logo__img(src='img/logo.png' alt='')
+
+		ul.menu.header__menu
+
+			each val in menu
+				li.menu__item
+					a.menu__link(href= val.link)= val.name
+
