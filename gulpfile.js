@@ -102,6 +102,7 @@ gulp.task('stylus', function() {
 		.pipe(stylus()) // Преобразуем Stylus в CSS
 		.pipe(queries()) // Объединяем медиа запросы
 		.pipe(prod ? autoprefixer(['last 15 versions', '>1%', 'ie 8', 'ie 7'], {cascade: true}) : gutil.noop()) // Создаём префиксы
+		.pipe(prod ? csso() : gutil.noop()) // Сжимаем CSS
 		.pipe(gulp.dest(dist + 'css/')) // Выгружаем результат
 		.pipe(reload({stream: true})); // Перезагружаем сервер
 });
@@ -132,10 +133,7 @@ gulp.task('js', function() {
 	])
 		.pipe(plumber(err)) // Отслеживаем ошибки
 		.pipe(include()) // Собираем их в один файл
-		.pipe(prod ? prettify({ // Форматируем код
-			indent_char: '\t',
-			indent_size: 1
-		}) : gutil.noop())
+		.pipe(prod ? uglify() : gutil.noop()) // Сжимаем
 		.pipe(gulp.dest(dist + 'js')) // Выгружаем
 		.pipe(reload({stream: true})); // Перезагружаем сервер
 });
