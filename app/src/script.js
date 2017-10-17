@@ -8,9 +8,9 @@ $(function() {
 	}());
 
 	(function() { @@include('blocks/input/input.js') }());
-	(function() { @@include('blocks/wow.js') }());
 });
 
 (function() { @@include('blocks/preloader/preloader.js') }());
+(function() { @@include('blocks/wow.js') }());
 
 @@include('global/functions.js')
